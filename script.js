@@ -1,91 +1,3 @@
-// Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the preloader
-    initPreloader();
-    
-    // Initialize custom cursor
-    initCustomCursor();
-    
-    // Initialize navigation
-    initNavigation();
-    
-    // Initialize hero canvas
-    initHeroCanvas();
-    
-    // Initialize carousel
-    initCarousel();
-    
-    // Initialize stats counter
-    initStatsCounter();
-    
-    // Initialize 3D showcase
-    initWebGLShowcase();
-    
-    // Initialize audio visualizer
-    initAudioVisualizer();
-    
-    // Initialize testimonials
-    initTestimonials();
-    
-    // Initialize form handling
-    initFormHandling();
-    
-    // Initialize game cards
-    initGameCards();
-    
-    // Initialize blog interactions
-    initBlogInteractions();
-});
-
-// Preloader - Simplified version with guaranteed completion
-function initPreloader() {
-    const preloader = document.querySelector('.preloader');
-    const progress = document.querySelector('.progress');
-    
-    if (!preloader || !progress) {
-        // If elements don't exist, just return and allow page to display
-        document.body.classList.add('loaded');
-        return;
-    }
-    
-    // Set a maximum loading time (3 seconds)
-    const maxLoadTime = 3000;
-    const startTime = Date.now();
-    
-    // Guaranteed completion after maxLoadTime
-    setTimeout(() => {
-        preloader.style.opacity = '0';
-        setTimeout(() => {
-            preloader.style.display = 'none';
-            document.body.classList.add('loaded');
-        }, 500);
-    }, maxLoadTime);
-    
-    // Simulate loading progress
-    let width = 0;
-    const interval = setInterval(() => {
-        // Calculate elapsed time as percentage of maxLoadTime
-        const elapsed = Date.now() - startTime;
-        const percentComplete = Math.min(100, (elapsed / maxLoadTime) * 100);
-        
-        // Ensure progress always completes
-        width = percentComplete;
-        progress.style.width = width + '%';
-        
-        if (width >= 100) {
-            clearInterval(interval);
-            setTimeout(() => {
-                preloader.style.opacity = '0';
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                    document.body.classList.add('loaded');
-                }, 500);
-            }, 200);
-        }
-    }, 50);
-}
-
-
 // Custom Cursor
 function initCustomCursor() {
     const cursorFollower = document.querySelector('.cursor-follower');
@@ -151,6 +63,17 @@ function initCustomCursor() {
             duration: 0.3
         });
     });
+}
+
+function scrollToNextSection() {
+    // Find the next section after the hero section
+    const heroSection = document.getElementById('home');
+    const nextSection = heroSection.nextElementSibling;
+    
+    if (nextSection) {
+        // Scroll to the next section with smooth behavior
+        nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
 }
 
 // Navigation

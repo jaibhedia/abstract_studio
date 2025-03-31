@@ -66,20 +66,187 @@ img {
     max-width: 100%;
     height: auto;
 }
-
-/* Preloader */
 .preloader {
     position: fixed;
+    z-index: 9999;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--primary-color);
+    background-color: #000;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff99, #33ccff);
+    width: 0;
+    box-shadow: 0 0 8px #00ffcc;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff99, #33ccff);
+    width: 0; /* Start at 0% */
+    box-shadow: 0 0 8px #00ffcc;
+    transition: width 0.1s linear;
+}
+
+body.loaded {
+    overflow: auto;
+}
+
+.preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.circuit-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100%" height="100%" fill="black"/><path d="M10 10h80v80H10z" stroke="%2333ff33" stroke-width="0.5" fill="none"/><path d="M30 10v30h40v40H10" stroke="%2333ff33" stroke-width="0.5" fill="none"/><circle cx="30" cy="40" r="3" fill="%2333ff33"/><circle cx="70" cy="40" r="3" fill="%2333ff33"/><circle cx="50" cy="70" r="3" fill="%2333ff33"/></svg>');
+    opacity: 0.3;
+    animation: circuit-animate 15s linear infinite;
+}
+
+@keyframes circuit-animate {
+    0% { background-position: 0 0; }
+    100% { background-position: 100px 100px; }
+}
+
+.glitch-container {
+    margin-bottom: 30px;
+    transform: scale(1.2);
+}
+
+.glitch {
+    font-size: 3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
+    color: white;
+    letter-spacing: 5px;
+    animation: catastrophic-glitch 5s infinite, flicker 0.5s infinite alternate;
+}
+
+@keyframes catastrophic-glitch {
+    0% {
+        text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.025em -0.05em 0 rgba(0,255,0,0.75), 0.025em 0.05em 0 rgba(0,0,255,0.75);
+    }
+    14% {
+        text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.025em -0.05em 0 rgba(0,255,0,0.75), 0.025em 0.05em 0 rgba(0,0,255,0.75);
+    }
+    15% {
+        text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75), 0.025em 0.025em 0 rgba(0,255,0,0.75), -0.05em -0.05em 0 rgba(0,0,255,0.75);
+    }
+    49% {
+        text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75), 0.025em 0.025em 0 rgba(0,255,0,0.75), -0.05em -0.05em 0 rgba(0,0,255,0.75);
+    }
+    50% {
+        text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75), 0.05em 0 0 rgba(0,255,0,0.75), 0 -0.05em 0 rgba(0,0,255,0.75);
+    }
+    99% {
+        text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75), 0.05em 0 0 rgba(0,255,0,0.75), 0 -0.05em 0 rgba(0,0,255,0.75);
+    }
+    100% {
+        text-shadow: -0.025em 0 0 rgba(255,0,0,0.75), -0.025em -0.025em 0 rgba(0,255,0,0.75), -0.025em -0.05em 0 rgba(0,0,255,0.75);
+    }
+}
+
+@keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        transform: scaleX(1) scaleY(1);
+    }
+    20%, 24%, 55% {
+        opacity: 0.8;
+        transform: scaleX(1.2) scaleY(0.8);
+    }
+}
+
+.loading-bar {
+    width: 300px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 30px 0;
+    position: relative;
+    overflow: visible;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff99, #33ccff);
+    width: 0;
+    box-shadow: 0 0 8px #00ffcc, 0 0 15px #00ffcc;
+    position: relative;
+}
+
+.loading-sparks {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 3px;
+    height: 4px;
+    background: white;
+}
+
+.loading-text {
+    font-size: 1rem;
+    letter-spacing: 3px;
+    color: white;
+    animation: text-glitch 2s infinite alternate;
+    position: relative;
+}
+
+.loading-text:after {
+    content: attr(data-text);
+    position: absolute;
+    left: 2px;
+    text-shadow: -1px 0 red;
+    top: 0;
+    color: white;
+    background: black;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: loading-text-noise 3s infinite linear;
+}
+
+@keyframes loading-text-noise {
+    0% {
+        clip: rect(0, 900px, 5px, 0);
+    }
+    5% {
+        clip: rect(0, 900px, 2px, 0);
+    }
+    10% {
+        clip: rect(0, 900px, 10px, 0);
+    }
+    /* more keyframes... */
+    100% {
+        clip: rect(0, 900px, 5px, 0);
+    }
+}
+
+.binary-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.8)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500"><text x="0" y="15" fill="%2300ff00" font-size="10" font-family="monospace">10110100011010010101001101010010010100101001010110101001010</text></svg>');
+    opacity: 0.1;
+    pointer-events: none;
 }
 
 .glitch-container {
@@ -285,6 +452,136 @@ nav.scrolled {
     color: var(--secondary-color);
     letter-spacing: 5px;
 }
+/* Enhanced crazy glitch effect */
+.glitch-text.ultra {
+    position: relative;
+    animation: glitch-skew 4s cubic-bezier(.25, .46, .45, .94) infinite alternate-reverse;
+  }
+  
+  .glitch-text.ultra::before,
+  .glitch-text.ultra::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+  }
+  
+  .glitch-text.ultra::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-1 5s infinite linear alternate-reverse;
+  }
+  
+  .glitch-text.ultra::after {
+    left: -2px;
+    text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-2 7s infinite linear alternate-reverse;
+  }
+  
+  @keyframes glitch-anim-1 {
+    0% {
+      clip: rect(66px, 9999px, 10px, 0);
+      transform: skew(0.85deg);
+      text-shadow: -2px 0 #ff00c1;
+    }
+    5% {
+      clip: rect(36px, 9999px, 98px, 0);
+      transform: skew(0.19deg);
+      text-shadow: -8px 0 #ff00c1;
+    }
+    10% {
+      clip: rect(62px, 9999px, 78px, 0);
+      transform: skew(0.95deg);
+      text-shadow: -2px 0 #00fff9;
+    }
+    15% {
+      content: attr(data-text-alt);
+      clip: rect(12px, 9999px, 75px, 0);
+      transform: skew(0.41deg);
+    }
+    20% {
+      clip: rect(20px, 9999px, 23px, 0);
+      transform: skew(0.14deg);
+    }
+    25% {
+      content: attr(data-text);
+    }
+    /* Continue with more variations */
+    100% {
+      clip: rect(67px, 9999px, 95px, 0);
+      transform: skew(0.03deg);
+    }
+  }
+  
+  @keyframes glitch-anim-2 {
+    0% {
+      clip: rect(12px, 9999px, 25px, 0);
+      transform: skew(0.15deg);
+    }
+    5% {
+      clip: rect(72px, 9999px, 43px, 0);
+      transform: skew(0.6deg);
+    }
+    10% {
+      clip: rect(5px, 9999px, 98px, 0);
+      transform: skew(0.31deg);
+    }
+    15% {
+      clip: rect(28px, 9999px, 65px, 0);
+      transform: skew(0.75deg);
+      content: attr(data-text-alt);
+    }
+    20% {
+      clip: rect(20px, 9999px, 23px, 0);
+      transform: skew(0.14deg);
+    }
+    /* Continue with more variations */
+    100% {
+      clip: rect(13px, 9999px, 95px, 0);
+      transform: skew(0.03deg);
+    }
+  }
+  
+  @keyframes glitch-skew {
+    0% {
+      transform: skew(0deg);
+    }
+    10% {
+      transform: skew(-2deg);
+    }
+    20% {
+      transform: skew(0.7deg);
+    }
+    30% {
+      transform: skew(0deg);
+    }
+    40% {
+      transform: skew(-1deg);
+    }
+    50% {
+      transform: skew(-0.4deg);
+    }
+    60% {
+      transform: skew(1.6deg);
+    }
+    70% {
+      transform: skew(0deg);
+    }
+    80% {
+      transform: skew(-0.2deg);
+    }
+    90% {
+      transform: skew(0.6deg);
+    }
+    100% {
+      transform: skew(0deg);
+    }
+  }
 
 .glitch-text::before,
 .glitch-text::after {
@@ -677,6 +974,138 @@ nav.scrolled {
     font-size: 1rem;
     color: var(--accent-color);
 }
+/* Services Section */
+.services {
+    padding: 100px 0;
+    background-color: var(--primary-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.services-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.service-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Service Card Equal Height Fix */
+.service-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    /* Fix for equal height */
+    height: 475px; /* Fixed height for all cards */
+    display: flex;
+    flex-direction: column;
+}
+
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.service-icon {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: var(--accent-color);
+}
+
+
+.service-card h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+.service-card p {
+    margin-bottom: 20px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Make the features list take up available space */
+.service-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    flex-grow: 1; /* Take up available space */
+}
+
+/* Position tech icons at the bottom */
+.tech-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: auto; /* Push to bottom of flex container */
+    color: var(--accent-color);
+    font-size: 24px;
+}
+
+.service-features li {
+    padding: 8px 0 8px 15px;
+    position: relative;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.service-features li:before {
+    content: "•";
+    color: var(--accent-color);
+    position: absolute;
+    left: 0;
+    top: 8px;
+}
+
+.feature-highlight {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.tech-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    color: var(--accent-color);
+    font-size: 24px;
+}
+
+.tech-icons i {
+    transition: transform 0.3s ease;
+}
+
+.tech-icons i:hover {
+    transform: scale(1.2);
+}
+
+.fab.fa-unreal-engine {
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Responsive design for services section */
+@media (max-width: 768px) {
+    .services-container {
+        flex-direction: column;
+    }
+}
 
 /* Interactive Showcase */
 .interactive-showcase {
@@ -1041,15 +1470,16 @@ nav.scrolled {
     }
     
     .testimonial {
-    padding: 0 20px;
+        padding: 0 20px;
+        margin-bottom: 20px;
     }
-    
     .testimonial-content {
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 30px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    position: relative;
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        position: relative;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
     
     .quote-icon {
@@ -1760,3 +2190,249 @@ nav.scrolled {
         transform: translateX(0);
         }
         }
+        /* Mobile and Tablet Optimization */
+
+/* Base Responsive Refinements */
+html {
+    font-size: 16px;
+}
+
+/* Fix service cards for better mobile display */
+.service-card {
+    height: auto;
+    min-height: 450px;  /* Use min-height instead of fixed height */
+    padding: 25px;      /* Slightly smaller padding on mobile */
+}
+
+/* Enhanced Media Queries */
+@media screen and (max-width: 1024px) {
+    /* Tablet Styles */
+    html {
+        font-size: 14px;
+    }
+    
+    section {
+        padding: 70px 0;  /* Reduced section padding */
+    }
+    
+    .services-container {
+        gap: 25px;  /* Smaller gap on tablets */
+    }
+    
+    .service-card {
+        padding: 25px;
+        min-height: 420px;
+    }
+    
+    .hero-content {
+        max-width: 80%;
+    }
+    
+    .glitch-text {
+        font-size: 3.5rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* Small Tablet Styles */
+    html {
+        font-size: 12px;
+    }
+    
+    section {
+        padding: 50px 0;
+    }
+    
+    .services-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .service-card {
+        min-height: auto;
+        margin-bottom: 20px;
+    }
+    
+    /* Fix navigation for mobile */
+    .nav-links {
+        position: fixed;
+        right: 0;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.95);
+        height: 100vh;
+        width: 70%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        clip-path: circle(0px at 90% -10%);
+        transition: all 0.4s ease-out;
+        pointer-events: none;
+        z-index: 1001;
+        padding: 80px 0;
+    }
+    
+    .nav-links.nav-active {
+        clip-path: circle(1000px at 90% -10%);
+        pointer-events: all;
+    }
+    
+    .burger {
+        display: block;
+        z-index: 1002;
+    }
+    
+    /* Better testimonial display on mobile */
+    .testimonial {
+        padding: 0 10px;
+    }
+    
+    .testimonial-content {
+        padding: 20px;
+    }
+    
+    /* Adjust game cards for mobile */
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .game-card {
+        height: 400px;
+    }
+    
+    /* Contact section adjustments */
+    .contact-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .info-card {
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Mobile Styles */
+    html {
+        font-size: 10px;
+    }
+    
+    section {
+        padding: 40px 0;
+    }
+    
+    .section-header {
+        margin-bottom: 30px;
+    }
+    
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .hero-content {
+        max-width: 90%;
+    }
+    
+    .glitch-text {
+        font-size: 2.5rem;
+    }
+    
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 0.9rem;
+    }
+    
+    /* Make service cards more compact */
+    .service-card {
+        padding: 20px;
+    }
+    
+    .service-icon {
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+    
+    .service-card h3 {
+        font-size: 20px;
+    }
+    
+    /* Full width navigation on smallest screens */
+    .nav-links {
+        width: 100%;
+    }
+    
+    /* Optimize loading bar for small screens */
+    .loading-bar {
+        width: 80%;
+        max-width: 280px;
+    }
+
+    /* Fix footer for mobile */
+    .footer-content {
+        text-align: center;
+    }
+    
+    .footer-logo {
+        align-items: center;
+    }
+    
+    .footer-column h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    /* Optimize preloader for mobile */
+    .glitch {
+        font-size: 2.2rem;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+    .service-card:hover,
+    .game-card:hover .game-card-inner,
+    .blog-card:hover,
+    .cta-container:hover .cta-highlight,
+    .info-card:hover,
+    .social-icon:hover {
+        /* Reduce or eliminate hover effects on touch devices */
+        transform: none;
+    }
+    
+    /* Alternative touch feedback */
+    .nav-link:active::after {
+        width: 100%;
+    }
+    
+    .service-card:active {
+        background: rgba(255, 255, 255, 0.07);
+    }
+    
+    .cta-button:active {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+    }
+}
+
+/* Performance optimizations for mobile */
+@media screen and (max-width: 768px) {
+    /* Simplify animations for better performance */
+    .glitch::before,
+    .glitch::after,
+    .glitch-text::before,
+    .glitch-text::after {
+        animation-duration: 8s; /* Slower animations = less CPU usage */
+    }
+    
+    /* Reduce parallax effects on mobile */
+    #hero-canvas {
+        opacity: 0.5; /* Make canvas effects more subtle */
+    }
+    
+    /* Optimize images for mobile */
+    .game-card-front img,
+    .carousel-item img,
+    .testimonial-author img {
+        will-change: transform; /* Hardware acceleration hint */
+    }
+}

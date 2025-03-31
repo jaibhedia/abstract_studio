@@ -10,14 +10,69 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
 </head>
 <body>
-    <!-- <div class="preloader">
-        <div class="glitch-container">
-            <div class="glitch" data-text="ABSTRACT STUDIO">ABSTRACT STUDIO</div>
+    <body>
+        <div class="preloader">
+            <div class="circuit-background"></div>
+            <div class="glitch-container">
+                <div class="glitch-text ultra">
+                    <div class="glitch" data-text="ABSTRACT STUDIO" data-text-alt="SYSTEM FAILURE">ABSTRACT STUDIO</div>
+                </div>
+            </div>
+            <div class="loading-bar">
+                <div class="progress"></div>
+                <div class="loading-sparks"></div>
+            </div>
+            <div class="loading-text" data-text="INITIALIZING EXPERIENCE">INITIALIZING EXPERIENCE</div>
+            <div class="binary-overlay"></div>
         </div>
-        <div class="loading-bar"><div class="progress"></div></div>
-        <div class="loading-text">INITIALIZING EXPERIENCE</div>
-    </div>
-     -->
+        <script>
+            //Preloader script
+            document.addEventListener('DOMContentLoaded', function() {
+                const preloader = document.querySelector('.preloader');
+                const progress = document.querySelector('.progress');
+                const loadingText = document.querySelector('.loading-text');
+                const loadingSparks = document.querySelector('.loading-sparks');
+                const glitch = document.querySelector('.glitch');
+                
+               
+                let width = 0;
+                
+                const totalDuration = 1500; 
+                const interval = 30; 
+                const increment = (100 / (totalDuration / interval));
+                
+               
+                const progressInterval = setInterval(function() {
+                   
+                    width += increment;
+                    
+             
+                    if (loadingSparks) {
+                        loadingSparks.style.top = (Math.random() * 8 - 4) + 'px';
+                        loadingSparks.style.opacity = (Math.random() * 0.5 + 0.5);
+                    }
+                    
+                    progress.style.width = width + '%';
+                    
+                    if (width >= 100) {
+                        clearInterval(progressInterval);
+                        
+                        if (glitch) {
+                            glitch.textContent = "SYSTEM ONLINE";
+                            glitch.setAttribute('data-text', "SYSTEM ONLINE");
+                        }
+                        
+                        setTimeout(function() {
+                            preloader.style.opacity = '0';
+                            setTimeout(function() {
+                                preloader.style.display = 'none';
+                            }, 500);
+                        }, 500);
+                    }
+                }, interval);
+            });
+        </script>
+        </body>
     <!-- Custom Cursor -->
     <div class="cursor-follower"></div>
     <div class="cursor-dot"></div>
@@ -25,15 +80,12 @@
     <!-- Navigation -->
     <nav>
         <div class="logo">
-            <svg id="logo-svg" width="50" height="50" viewBox="0 0 100 100">
-                <polygon points="50,10 90,50 50,90 10,50" fill="none" stroke="#ffffff" stroke-width="2"></polygon>
-                <circle cx="50" cy="50" r="20" fill="none" stroke="#ffffff" stroke-width="2"></circle>
-            </svg>
-            <span>ABSTRACT STUDIO</span>
+            <img src="logo.png" alt="Abstract Studio Logo" class="logo-img" style="max-height: 75px; width: auto;">
         </div>
         <ul class="nav-links">
             <li><a href="#home" class="nav-link">Home</a></li>
             <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#services" class="nav-link">Services</a></li>
             <li><a href="#games" class="nav-link">Games</a></li>
             <li><a href="#contact" class="nav-link">Contact Us</a></li>
         </ul>
@@ -48,22 +100,11 @@
     <section id="home" class="hero">
         <canvas id="hero-canvas"></canvas>
         <div class="hero-content">
-            <h1 class="glitch-text" data-text="REDEFINING REALITY">REDEFINING REALITY</h1>
+            <h1 class="glitch-text ultra" data-text="Gaming Reimagined" data-text-alt="SYSTEM FAILURE">Gaming Reimagined.</h1>
             <p>We craft immersive digital worlds that blur the line between fiction and reality</p>
             <div class="cta-container">
-                <button class="cta-button">Enter Our Universe</button>
-                <div class="cta-highlight"></div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
-            </div>
-            <div class="arrows">
-                <span class="arrow"></span>
-                <span class="arrow"></span>
-                <span class="arrow"></span>
-            </div>
+            <a href="" target="_blank" rel="noopener noreferrer" class="cta-button">Try Propcalypse</a>
+            <div class="cta-highlight"></div>
         </div>
     </section>
 
@@ -127,7 +168,7 @@
             </div>
             <div class="about-stats">
                 <div class="stat">
-                    <div class="stat-number" data-target="15">4</div>
+                    <div class="stat-number" data-target="15">2</div>
                     <div class="stat-plus">+</div>
                     <p>Industry Veterans</p>
                 </div>
@@ -144,8 +185,95 @@
             </div>
         </div>
     </section>
-
-    <!-- Interactive Showcase -->
+<!-- Services Section -->
+<section id="services" class="services">
+    <div class="section-header">
+        <h2>OUR SERVICES</h2>
+        <div class="header-line"></div>
+    </div>
+    <div class="services-container">
+        <!-- Left Column: Game Development -->
+        <div class="service-column">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h3>Game Development</h3>
+                <p>From concept to launch, we create captivating gaming experiences across platforms.</p>
+                <ul class="service-features">
+                    <li><span class="feature-highlight">Unity 3D</span> - cross-platform development</li>
+                    <li><span class="feature-highlight">Unreal Engine</span> - High-fidelity graphics and performance</li>
+                    <li><span class="feature-highlight">C#/C++/Blueprints</span> - Custom game mechanics and optimizations</li>
+                    <li><span class="feature-highlight">Mobile & Desktop</span> - Seamless experiences across devices</li>
+                </ul>
+                <div class="tech-icons">
+                    <i class="fab fa-unity" title="Unity"></i>
+                    <i class="fab fa-unreal-engine" title="Unreal Engine">UE</i>
+                    <i class="fas fa-mobile-alt" title="Mobile"></i>
+                    <i class="fas fa-desktop" title="Desktop"></i>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-vr-cardboard"></i>
+                </div>
+                <h3>AR/VR Experiences</h3>
+                <p>Pushing the boundaries of reality with immersive AR and VR applications.</p>
+                <ul class="service-features">
+                    <li><span class="feature-highlight">AR Development</span> - iOS and Android</li>
+                    <li><span class="feature-highlight">VR Development</span> - Oculus</li>
+                </ul>
+                <div class="tech-icons">
+                    <i class="fas fa-vr-cardboard" title="VR"></i>
+                    <i class="fas fa-glasses" title="AR"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column: Co-development & Consulting -->
+        <div class="service-column">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Ghost/Co-op Studio</h3>
+                <p>Flexible partnership models to bring your gaming vision to life.</p>
+                <ul class="service-features">
+                    <li><span class="feature-highlight">White Label Development</span> - Behind-the-scenes support</li>
+                    <li><span class="feature-highlight">Co-development</span> - Collaborative game creation</li>
+                    <li><span class="feature-highlight">Project Rescue</span> - Solutions for troubled productions</li>
+                    <li><span class="feature-highlight">Scalable Teams</span> - From indie to AAA-level support</li>
+                </ul>
+                <div class="tech-icons">
+                    <i class="fas fa-users" title="Team"></i>
+                    <i class="fas fa-code-branch" title="Collaboration"></i>
+                    <i class="fas fa-tasks" title="Project Management"></i>
+                    <i class="fas fa-shield-alt" title="Security"></i>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Why Choose Us</h3>
+                <p>Industry expertise with a passion for innovation and quality.</p>
+                <ul class="service-features">
+                    <li><span class="feature-highlight">Technical Excellence</span> - C++, C#, Blueprints and optimization experts</li>
+                    <li><span class="feature-highlight">Full Spectrum</span> - From personal projects to industry-level</li>
+                    <li><span class="feature-highlight">Innovative Approach</span> - Combining art and technology</li>
+                    <li><span class="feature-highlight">End-to-End Service</span> - Concept, development, and support</li>
+                </ul>
+                <div class="tech-icons">
+                    <i class="fas fa-code" title="Code"></i>
+                    <i class="fas fa-laptop-code" title="Development"></i>
+                    <i class="fas fa-lightbulb" title="Innovation"></i>
+                    <i class="fas fa-award" title="Quality"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Interactive Showcase
     <section class="interactive-showcase">
         <div class="section-header">
             <h2>INTERACTIVE EXPERIENCE</h2>
@@ -174,7 +302,7 @@
                 </button>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Games Section -->
     <section id="games" class="games">
@@ -186,9 +314,10 @@
             <div class="game-card">
                 <div class="game-card-inner">
                     <div class="game-card-front">
-                        <img src="game1-cover.jpg" alt="Quantum Nexus">
+                        <img src="game1-cover.jpg" alt="Hide & Seek">
                         <div class="game-title">
                             <h3>Hide & Seek</h3>
+                            <div class="coming-soon-badge">Coming 2025</div>
                         </div>
                     </div>
                     <div class="game-card-back">
@@ -197,13 +326,13 @@
                             <p>A childhood classic fun game made digital.</p>
                             <ul class="game-features">
                                 <li>Fast-Paced</li>
-                                <li>Non-linear storytelling</li>
-                                <li>Adaptive difficulty</li>
+                                <li>Fun to play</li>
+                                <li>Nostalgic</li>
                             </ul>
                             <div class="game-platforms">
                                 <i class="fab fa-windows"></i>
-                                <i class="fab fa-playstation"></i>
-                                <i class="fab fa-xbox"></i>
+                                <i class="fab fa-android"></i>
+                                <i class="fab fa-apple"></i>
                             </div>
                             <button class="game-btn">Coming 2025</button>
                         </div>
@@ -213,9 +342,10 @@
             <div class="game-card">
                 <div class="game-card-inner">
                     <div class="game-card-front">
-                        <img src="game2-cover.jpg" alt="Ethereal Kingdoms">
+                        <img src="game2-cover.jpg" alt="Propcalypse">
                         <div class="game-title">
                             <h3>Propcalypse</h3>
+                            <div class="coming-soon-badge">Beta Release</div>
                         </div>
                     </div>
                     <div class="game-card-back">
@@ -223,16 +353,15 @@
                             <h3>Propcalypse</h3>
                             <p>A fast-paced thriller action game.</p>
                             <ul class="game-features">
-                                <li>Procedural narrative</li>
-                                <li>Living ecosystem</li>
-                                <li>Dynamic character evolution</li>
+                                <li>Action-packed</li>
+                                <li>Interactive maps</li>
+                                <li>Immersive gameplay experience</li>
                             </ul>
                             <div class="game-platforms">
                                 <i class="fab fa-windows"></i>
-                                <i class="fab fa-playstation"></i>
-                                <i class="fab fa-xbox"></i>
+                                <i class="fab fa-android"></i>
                             </div>
-                            <button class="game-btn">Coming 2025</button>
+                            <button class="game-btn">Beta Release</button>
                         </div>
                     </div>
                 </div>
@@ -240,7 +369,7 @@
             <div class="game-card coming-soon">
                 <div class="game-card-inner">
                     <div class="game-card-front">
-                        <img src="game3-cover.jpg" alt="Project Horizon">
+                        <img src="game3-cover.jpg" alt="Piss the warden">
                         <div class="game-title">
                             <h3>Piss the warden</h3>
                             <div class="coming-soon-badge">Coming 2025</div>
@@ -255,11 +384,10 @@
                             </div>
                             <div class="game-platforms">
                                 <i class="fab fa-windows"></i>
-                                <i class="fab fa-playstation"></i>
-                                <i class="fab fa-xbox"></i>
+                                <i class="fab fa-android"></i>
                                 <i class="fab fa-apple"></i>
                             </div>
-                            <button class="game-btn">Wishlist</button>
+                            <button class="game-btn">Coming 2025</button>
                         </div>
                     </div>
                 </div>
@@ -268,7 +396,7 @@
     </section>
 
     <!-- Audio Experience Section -->
-    <section class="sound-experience">
+    <!-- <section class="sound-experience">
         <div class="section-header">
             <h2>AUDIO EXPERIENCE</h2>
             <div class="header-line"></div>
@@ -291,7 +419,7 @@
         <div class="sound-description">
             <p>Our audio team crafts immersive soundscapes that transport players into new worlds. Experience a sample of our work.</p>
         </div>
-    </section>
+    </section> -->
 
     <!-- Testimonials Section -->
     <section class="testimonials">
@@ -306,10 +434,10 @@
                     <p>Abstract Studio is poised to become one of the most innovative forces in gaming. Their attention to detail and creative vision sets them apart from the crowd.</p>
                 </div>
                 <div class="testimonial-author">
-                    <img src="reviewer1.jpg" alt="Alex Chen">
+                    <img src="me.jpg" alt="Alex Chen">
                     <div>
-                        <h4>Alex Chen</h4>
-                        <p>Game Industry Analyst</p>
+                        <h4>Shantanu Swami</h4>
+                        <p>Game Designer</p>
                     </div>
                 </div>
             </div>
@@ -319,10 +447,10 @@
                     <p>The team at Abstract has a unique approach to game design that feels both fresh and familiar. Can't wait to see what they release next.</p>
                 </div>
                 <div class="testimonial-author">
-                    <img src="reviewer2.jpg" alt="Maya Johnson">
+                    <img src="suhas.jpg" alt="Suhas G J">
                     <div>
-                        <h4>Maya Johnson</h4>
-                        <p>Gaming Influencer</p>
+                        <h4>Suhas G J</h4>
+                        <p>Blender Artist</p>
                     </div>
                 </div>
             </div>
@@ -332,10 +460,10 @@
                     <p>Their technical prowess combined with artistic vision makes Abstract Studio a developer to watch closely in the coming years.</p>
                 </div>
                 <div class="testimonial-author">
-                    <img src="reviewer3.jpg" alt="James Wilson">
+                    <img src="valuebhai.jpg" alt="James Wilson">
                     <div>
-                        <h4>James Wilson</h4>
-                        <p>Tech Reviewer</p>
+                        <h4>S K Vallabh</h4>
+                        <p>Blender Artist</p>
                     </div>
                 </div>
             </div>
@@ -344,7 +472,7 @@
     </section>
 
     <!-- Blog Section -->
-    <section id="blog" class="blog">
+    <!-- <section id="blog" class="blog">
         <div class="section-header">
             <h2>LATEST FROM OUR BLOG</h2>
             <div class="header-line"></div>
@@ -405,7 +533,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
  <!-- Contact Section -->
  <section id="contact" class="contact">
@@ -421,7 +549,7 @@
                 </div>
                 <div class="info-content">
                     <h3>Our Location</h3>
-                    <p>123 Digital Avenue, Tech City, TC 12345</p>
+                    <p>Abstract Studio, Udipalya, Kanakpura Road, Bengaluru-82, IN</p>
                 </div>
             </div>
             <div class="info-card">
@@ -430,27 +558,27 @@
                 </div>
                 <div class="info-content">
                     <h3>Email Us</h3>
-                    <p>info@abstractstudio.com</p>
+                    <p>info@abstractstudio.in</p>
                 </div>
             </div>
-            <div class="info-card">
+            <!-- <div class="info-card">
                 <div class="info-icon">
                     <i class="fas fa-phone-alt"></i>
                 </div>
                 <div class="info-content">
                     <h3>Call Us</h3>
-                    <p>+1 (555) 123-4567</p>
+                    <p></p>
                 </div>
-            </div>
+            </div> -->
             <div class="social-links">
-                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://x.com/AbstractStudioX" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <!-- <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a> -->
+                <a href="https://www.instagram.com/abstractstudio_in" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <!-- <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a> -->
             </div>
         </div>
         <div class="contact-form">
-            <form id="contact-form">
+            <form id="contact-form" action="https://formspree.io/f/mdkelbjr" method="POST">
                 <div class="form-group">
                     <input type="text" id="name" name="name" required>
                     <label for="name">Your Name</label>
@@ -476,12 +604,8 @@
 <!-- Footer -->
 <footer class="footer">
     <div class="footer-content">
-        <div class="footer-logo">
-            <svg id="footer-logo-svg" width="40" height="40" viewBox="0 0 100 100">
-                <polygon points="50,10 90,50 50,90 10,50" fill="none" stroke="#ffffff" stroke-width="2"></polygon>
-                <circle cx="50" cy="50" r="20" fill="none" stroke="#ffffff" stroke-width="2"></circle>
-            </svg>
-            <span>ABSTRACT STUDIO</span>
+        <div class="logo">
+            <img src="logo.png" alt="Abstract Studio Logo" class="logo-img" style="max-height: 150px; width: auto;">
         </div>
         <div class="footer-links">
             <div class="footer-column">
@@ -504,15 +628,15 @@
             <div class="footer-column">
                 <h4>Connect</h4>
                 <ul>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="https://x.com/AbstractStudioX">Twitter</a></li>
+                    <!-- <li><a href="#">Facebook</a></li> -->
+                    <li><a href="https://www.instagram.com/abstractstudio_in">Instagram</a></li>
+                    <!-- <li><a href="#">LinkedIn</a></li> -->
                 </ul>
             </div>
         </div>
     </div>
     <div class="footer-bottom">
-        <p>&copy; 2023 Abstract Studio. All rights reserved.</p>
+        <p>&copy; 2025 Abstract Studio. All rights reserved.</p>
     </div>
 </footer>
