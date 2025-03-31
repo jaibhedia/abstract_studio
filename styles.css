@@ -714,7 +714,7 @@ nav.scrolled {
 .arrow:nth-child(3) {
     animation-delay: 0.4s;
 }
-/* Hero Section with Background Carousel */
+/* Hero Section with Fixed Video Background */
 .hero {
     height: 100vh;
     display: flex;
@@ -725,8 +725,8 @@ nav.scrolled {
     overflow: hidden;
 }
 
-/* Ensure carousel fills the hero section */
-.hero .carousel {
+/* Video Background */
+.video-background {
     position: absolute;
     top: 0;
     left: 0;
@@ -735,39 +735,23 @@ nav.scrolled {
     z-index: 1;
 }
 
-.hero .carousel-item {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 1.5s ease;
-}
-
-.hero .carousel-item.active {
-    opacity: 1;
-}
-
-.hero .carousel-item video,
-.hero .carousel-item img {
+.video-background video {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* Dark overlay for better text visibility */
+/* Dark overlay and canvas */
 .hero-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Dark overlay for text readability */
+    background: rgba(0, 0, 0, 0.6);
     z-index: 2;
 }
 
-/* Position canvas above overlay but below content */
 #hero-canvas {
     position: absolute;
     top: 0;
@@ -775,10 +759,10 @@ nav.scrolled {
     width: 100%;
     height: 100%;
     z-index: 3;
-    opacity: 0.4; /* Make it subtle so it doesn't interfere with text */
+    opacity: 0.4;
 }
 
-/* Hero content positioned above everything */
+/* Hero content */
 .hero-content {
     position: relative;
     z-index: 5;
@@ -786,57 +770,27 @@ nav.scrolled {
     padding: 0 20px;
 }
 
-/* Reposition carousel controls for hero */
-.hero-carousel-controls {
-    position: absolute;
-    bottom: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 50px;
-    z-index: 4;
-    transform: translateY(50%);
+/* Showcase Section with Image Carousel */
+.showcase {
+    padding: 100px 0;
+    background-color: var(--primary-color);
+    position: relative;
 }
 
-/* Reposition carousel indicators for hero */
-.hero-carousel-indicators {
-    position: absolute;
-    bottom: 30px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    z-index: 4;
-}
-
-/* Style carousel indicators */
-.carousel-indicator {
-    width: 10px;
-    height: 10px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.carousel-indicator.active {
-    background-color: var(--secondary-color);
-    transform: scale(1.2);
-}
-/* Carousel Improvements */
+/* 
 .carousel-container {
     position: relative;
+    max-width: 1200px;
+    margin: 40px auto;
     overflow: hidden;
-    margin-top: 20px;
-    padding: 0;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .carousel {
     position: relative;
-    overflow: hidden;
     width: 100%;
-    height: 500px;  /* Fixed height for consistency */
+    height: 500px;
 }
 
 .carousel-item {
@@ -847,9 +801,6 @@ nav.scrolled {
     height: 100%;
     opacity: 0;
     transition: opacity 0.8s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .carousel-item.active {
@@ -857,67 +808,44 @@ nav.scrolled {
     z-index: 1;
 }
 
-.carousel-item img,
-.carousel-item video {
+.carousel-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* Fixed caption alignment */
-.carousel-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(transparent, rgba(0,0,0,0.8));
-    color: white;
-    text-align: center;
-    padding: 20px;
-    z-index: 2;
-}
-
-.carousel-caption h3 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-}
-
-.carousel-caption p {
-    font-size: 1rem;
-    opacity: 0.8;
-}
-
-/* Improved control buttons */
 .carousel-controls {
     position: absolute;
-    bottom: 50%;
+    top: 50%;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
+    transform: translateY(-50%);
     z-index: 5;
-    transform: translateY(50%);
+    padding: 0 20px;
 }
 
 .carousel-controls button {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     color: white;
     border: none;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: 18px;
 }
 
 .carousel-controls button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    transform: scale(1.1);
 }
 
-/* Improved indicators */
 .carousel-indicators {
     position: absolute;
     bottom: 20px;
@@ -939,22 +867,9 @@ nav.scrolled {
 }
 
 .carousel-indicator.active {
-    background-color: var(--secondary-color);
+    background-color: white;
     transform: scale(1.2);
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 768px) {
-    .carousel {
-        height: 350px;
-    }
-    
-    .carousel-caption h3 {
-        font-size: 1.4rem;
-    }
-}
-
-/* Section Headers */
+} */
 .section-header {
     text-align: center;
     margin-bottom: 60px;

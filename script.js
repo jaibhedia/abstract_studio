@@ -255,72 +255,117 @@ function initHeroCanvas() {
     animateParticles();
 }
 
-// Carousel functionality
-function initCarousel() {
-    const carousel = document.querySelector('.carousel');
-    const items = document.querySelectorAll('.carousel-item');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    const indicators = document.querySelector('.carousel-indicators');
-    
-    if (!carousel || items.length === 0) return;
-    
-    let currentIndex = 0;
-    
-    // Create indicators
-    items.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.classList.add('carousel-indicator');
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(index));
-        indicators.appendChild(dot);
-    });
-    
-    // Update indicators
-    function updateIndicators() {
-        const dots = document.querySelectorAll('.carousel-indicator');
-        dots.forEach((dot, index) => {
-            if (index === currentIndex) {
-                dot.classList.add('active');
-            } else {
-                dot.classList.remove('active');
-            }
-        });
-    }
-    
-    // Go to specific slide
-    function goToSlide(index) {
-        items[currentIndex].classList.remove('active');
-        currentIndex = index;
-        if (currentIndex < 0) currentIndex = items.length - 1;
-        if (currentIndex >= items.length) currentIndex = 0;
-        items[currentIndex].classList.add('active');
-        updateIndicators();
-    }
-    
-    // Next slide
-    function nextSlide() {
-        goToSlide(currentIndex + 1);
-    }
-    
-    // Previous slide
-    function prevSlide() {
-        goToSlide(currentIndex - 1);
-    }
-    
-    // Add event listeners to buttons
-    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-    
-    // Auto advance slides every 6 seconds
-    setInterval(nextSlide, 6000);
-}
 
-// Call carousel initialization when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initCarousel();
-    // Other initialization functions...
-});
+// function initCarousel() {
+//     console.log("Initializing carousel");
+//     const carousel = document.querySelector('.showcase .carousel');
+//     const items = document.querySelectorAll('.showcase .carousel-item');
+//     const prevBtn = document.querySelector('.showcase .carousel-controls .prev-btn');
+//     const nextBtn = document.querySelector('.showcase .carousel-controls .next-btn');
+//     const indicators = document.querySelector('.showcase .carousel-indicators');
+    
+//     if (!carousel || items.length === 0) {
+//         console.error("Carousel elements not found");
+//         return;
+//     }
+    
+//     console.log(`Found ${items.length} carousel items`);
+//     console.log("Prev button:", prevBtn);
+//     console.log("Next button:", nextBtn);
+    
+//     let currentIndex = 0;
+    
+//     // Create indicators
+//     items.forEach((_, index) => {
+//         const dot = document.createElement('div');
+//         dot.classList.add('carousel-indicator');
+//         if (index === 0) dot.classList.add('active');
+//         dot.addEventListener('click', () => goToSlide(index));
+//         indicators.appendChild(dot);
+//     });
+    
+//     // Update indicators
+//     function updateIndicators() {
+//         const dots = document.querySelectorAll('.carousel-indicator');
+//         dots.forEach((dot, index) => {
+//             if (index === currentIndex) {
+//                 dot.classList.add('active');
+//             } else {
+//                 dot.classList.remove('active');
+//             }
+//         });
+//     }
+    
+//     // Go to specific slide
+//     function goToSlide(index) {
+//         console.log(`Going to slide ${index}`);
+//         items[currentIndex].classList.remove('active');
+//         currentIndex = index;
+//         if (currentIndex < 0) currentIndex = items.length - 1;
+//         if (currentIndex >= items.length) currentIndex = 0;
+//         items[currentIndex].classList.add('active');
+//         updateIndicators();
+//     }
+    
+//     // Next slide
+//     function nextSlide() {
+//         console.log("Next slide");
+//         goToSlide(currentIndex + 1);
+//     }
+    
+//     // Previous slide
+//     function prevSlide() {
+//         console.log("Previous slide");
+//         goToSlide(currentIndex - 1);
+//     }
+    
+//     // Add event listeners to buttons
+//     if (prevBtn) {
+//         prevBtn.addEventListener('click', function(e) {
+//             e.preventDefault();
+//             prevSlide();
+//         });
+//     }
+    
+//     if (nextBtn) {
+//         nextBtn.addEventListener('click', function(e) {
+//             e.preventDefault();
+//             nextSlide();
+//         });
+//     }
+    
+//     // Auto advance slides every 6 seconds
+//     const intervalId = setInterval(nextSlide, 6000);
+    
+//     // Stop auto-advance when user interacts
+//     carousel.addEventListener('mouseenter', () => {
+//         clearInterval(intervalId);
+//     });
+    
+//     carousel.addEventListener('mouseleave', () => {
+//         setInterval(nextSlide, 6000);
+//     });
+// }
+
+// // Remove duplicate function calls and keep just one initialization
+// document.addEventListener('DOMContentLoaded', function() {
+//     console.log('DOM loaded, initializing components...');
+    
+//     // Initialize all components
+//     initCustomCursor();
+//     initNavigation();
+    
+//     if(typeof initHeroCanvas === 'function') {
+//         initHeroCanvas();
+//     }
+    
+//     // Initialize carousel
+//     initCarousel();
+    
+//     if(typeof initStatsCounter === 'function') {
+//         initStatsCounter();
+//     }
+// });
 // Hero carousel functionality
 function initHeroCarousel() {
     const carousel = document.querySelector('.hero .carousel');
@@ -385,6 +430,72 @@ function initHeroCarousel() {
 // Call this function when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     initHeroCarousel();
+    // Your other initialization functions...
+});
+// Image carousel functionality
+function initImageCarousel() {
+    const carousel = document.querySelector('.showcase .carousel');
+    const items = document.querySelectorAll('.showcase .carousel-item');
+    const prevBtn = document.querySelector('.showcase .prev-btn');
+    const nextBtn = document.querySelector('.showcase .next-btn');
+    const indicators = document.querySelector('.showcase .carousel-indicators');
+    
+    if (!carousel || items.length === 0) return;
+    
+    let currentIndex = 0;
+    
+    // Create indicators
+    items.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('carousel-indicator');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        indicators.appendChild(dot);
+    });
+    
+    // Update indicators
+    function updateIndicators() {
+        const dots = document.querySelectorAll('.showcase .carousel-indicator');
+        dots.forEach((dot, index) => {
+            if (index === currentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+    
+    // Go to specific slide
+    function goToSlide(index) {
+        items[currentIndex].classList.remove('active');
+        currentIndex = index;
+        if (currentIndex < 0) currentIndex = items.length - 1;
+        if (currentIndex >= items.length) currentIndex = 0;
+        items[currentIndex].classList.add('active');
+        updateIndicators();
+    }
+    
+    // Next slide
+    function nextSlide() {
+        goToSlide(currentIndex + 1);
+    }
+    
+    // Previous slide
+    function prevSlide() {
+        goToSlide(currentIndex - 1);
+    }
+    
+    // Add event listeners to buttons
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    
+    // Auto advance slides every 6 seconds
+    setInterval(nextSlide, 6000);
+}
+
+// Call this function when the DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initImageCarousel();
     // Your other initialization functions...
 });
 // Stats Counter
