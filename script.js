@@ -255,6 +255,55 @@ function initHeroCanvas() {
     animateParticles();
 }
 
+// Add hamburger menu functionality
+function initMobileNav() {
+    const burger = document.querySelector('.burger');
+    const nav = document.querySelector('.nav-links');
+    const navLinks = document.querySelectorAll('.nav-links li');
+    
+    if (!burger || !nav) return;
+    
+    // Toggle navigation when burger is clicked
+    burger.addEventListener('click', function() {
+        // Toggle nav
+        nav.classList.toggle('nav-active');
+        
+        // Animate burger
+        burger.classList.toggle('toggle');
+        
+        // Animate links
+        navLinks.forEach((link, index) => {
+            if (link.style.animation) {
+                link.style.animation = '';
+            } else {
+                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+            }
+        });
+    });
+    
+    // Close nav when a link is clicked
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (nav.classList.contains('nav-active')) {
+                nav.classList.remove('nav-active');
+                burger.classList.remove('toggle');
+                
+                navLinks.forEach(link => {
+                    link.style.animation = '';
+                });
+            }
+        });
+    });
+}
+
+// Add this to your DOM content loaded event
+document.addEventListener('DOMContentLoaded', function() {
+    // Other initializations...
+    
+    // Initialize mobile navigation
+    initMobileNav();
+});
+
 
 // function initCarousel() {
 //     console.log("Initializing carousel");
