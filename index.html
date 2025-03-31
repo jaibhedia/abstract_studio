@@ -96,60 +96,50 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <canvas id="hero-canvas"></canvas>
-        <div class="hero-content">
-            <h1 class="glitch-text ultra" data-text="Gaming Reimagined" data-text-alt="SYSTEM FAILURE">Gaming Reimagined.</h1>
-            <p>We craft immersive digital worlds that blur the line between fiction and reality</p>
-            <div class="cta-container">
-            <a href="" target="_blank" rel="noopener noreferrer" class="cta-button">Try Propcalypse</a>
+    <!-- Hero Section with Background Carousel -->
+<section id="home" class="hero">
+    <!-- Background Carousel -->
+    <div class="carousel">
+        <div class="carousel-item active">
+            <video autoplay muted loop playsinline>
+                <source src="gameplay.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="carousel-item">
+            <img src="game1.jpg" alt="Game Screenshot">
+        </div>
+        <div class="carousel-item">
+            <img src="game2.jpg" alt="Game Screenshot">
+        </div>
+    </div>
+    
+    <!-- Dark overlay for better text readability -->
+    <div class="hero-overlay"></div>
+    
+    <!-- Canvas can stay as an additional effect -->
+    <canvas id="hero-canvas"></canvas>
+    
+    <!-- Hero content -->
+    <div class="hero-content">
+        <h1 class="glitch-text ultra" data-text="Gaming Reimagined" data-text-alt="SYSTEM FAILURE">Gaming Reimagined.</h1>
+        <p>We craft immersive digital worlds that blur the line between fiction and reality</p>
+        <div class="cta-container">
+            <a href="https://abstractstudio.itch.io/propcalypse" target="_blank" rel="noopener noreferrer" class="cta-button">Try Propcalypse</a>
             <div class="cta-highlight"></div>
         </div>
-    </section>
+    </div>
+    
+    <!-- Carousel controls repositioned -->
+    <div class="carousel-controls hero-carousel-controls">
+        <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+        <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+    </div>
+    
+    <!-- Indicators at bottom of hero -->
+    <div class="carousel-indicators hero-carousel-indicators"></div>
+</section>
 
-    <!-- Carousel Section -->
-    <section class="carousel-container">
-        <div class="carousel">
-            <div class="carousel-item active">
-                <video autoplay muted loop playsinline>
-                    <source src="game-trailer.mp4" type="video/mp4">
-                </video>
-                <div class="carousel-caption">
-                    <h3>Hide & Seek</h3>
-                    <p>A childhood classic</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="game1.jpg" alt="Game Screenshot">
-                <div class="carousel-caption">
-                    <h3>Propcalypse</h3>
-                    <p>A fast paced thrill survivor game</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="game2.jpg" alt="Game Screenshot">
-                <div class="carousel-caption">
-                    <h3>Piss the warden</h3>
-                    <p>Just college student things</p>
-                </div>
-            </div>
-            <!-- <div class="carousel-item">
-                <video autoplay muted loop playsinline>
-                    <source src="gameplay.mp4" type="video/mp4">
-                </video>
-                <div class="carousel-caption">
-                    <h3>Project Horizon</h3>
-                    <p>Early gameplay footage - Pre-alpha</p>
-                </div>
-            </div>
-        </div> -->
-        <div class="carousel-controls">
-            <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
-            <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
-        </div>
-        <div class="carousel-indicators"></div>
-    </section>
+<!-- Remove the standalone carousel section since it's now integrated into the hero -->
 
     <!-- About Section -->
     <section id="about" class="about">
